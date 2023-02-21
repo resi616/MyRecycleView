@@ -22,7 +22,6 @@ class CardViewHeroAdapter (private val listHero : ArrayList<Hero>)
 
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_cardview_hero, parent, false)
         return CardViewViewHolder(view)
@@ -40,7 +39,7 @@ class CardViewHeroAdapter (private val listHero : ArrayList<Hero>)
         holder.tvName.text = name
         holder.tvFrom.text = from
 
-
+        holder.itemView.setOnClickListener { Toast.makeText(holder.itemView.context, "Kamu memilih " + listHero[position].name, Toast.LENGTH_SHORT).show() }
 
         holder.btnFavorite.setOnClickListener { Toast.makeText(holder.itemView.context, "Favorite " + listHero[holder.adapterPosition].name, Toast.LENGTH_SHORT).show() }
 
@@ -48,11 +47,9 @@ class CardViewHeroAdapter (private val listHero : ArrayList<Hero>)
 
         holder.itemView.setOnClickListener { Toast.makeText(holder.itemView.context, "Kamu memilih " + listHero[holder.adapterPosition].name, Toast.LENGTH_SHORT).show() }
 
-
     }
 
     override fun getItemCount(): Int {
         return listHero.size
     }
-
 }

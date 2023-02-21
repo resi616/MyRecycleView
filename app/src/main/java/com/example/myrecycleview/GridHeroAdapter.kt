@@ -8,26 +8,39 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class GridHeroAdapter (val listHeroes: ArrayList<Hero>)  : RecyclerView.Adapter<GridHeroAdapter.GridViewHolder>() {
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): GridViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_grid_hero, viewGroup, false)
+class GridHeroAdapter (val listHero:ArrayList<Hero>)
+    : RecyclerView.Adapter<GridHeroAdapter.GridViewHolder>() {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    inner class GridViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
+        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, I: Int): GridViewHolder {
+        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_grid_president,viewGroup, false)
         return GridViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         Glide.with(holder.itemView.context)
-            .load(listHeroes[position].photo)
-            .apply(RequestOptions().override(350, 550))
+            .load(listHero[position].photo)
+            .apply(RequestOptions().override(350,550))
             .into(holder.imgPhoto)
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listHero[holder.adapterPosition]) }
+    }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Hero)
     }
 
     override fun getItemCount(): Int {
-        return listHeroes.size
+        return listHero.size
     }
 
-    inner class GridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
-    }
 }
 
 
