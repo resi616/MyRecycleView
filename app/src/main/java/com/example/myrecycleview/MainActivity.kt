@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         rvHeroes.adapter = listHeroAdapter
 
 
-        rvHeroes.layoutManager = GridLayoutManager(this,2)
+        rvHeroes.layoutManager = GridLayoutManager(this,1)
         val gridHeroAdapter = GridHeroAdapter(list)
-        rvHeroes.adapter = gridHeroAdapter
+        rvHeroes.adapter = listHeroAdapter
         listHeroAdapter.setOnItemClickCallback(object : ListHeroAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Hero) {
                 showSelectedHero(data)
